@@ -1,13 +1,15 @@
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
+import { Provider } from 'react-redux'
 import '../styles/globals.css'
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
+import { store } from 'src/redux/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -23,27 +25,29 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          success: {
-            style: {
-              background: 'green',
-              color: '#fff'
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            success: {
+              style: {
+                background: 'green',
+                color: '#fff'
+              }
+            },
+            error: {
+              style: {
+                background: 'red',
+                color: '#fff'
+              }
             }
-          },
-          error: {
-            style: {
-              background: 'red',
-              color: '#fff'
-            }
-          }
-        }}
-      />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+          }}
+        />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Provider>
   )
 }
 
