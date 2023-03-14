@@ -2,17 +2,25 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  DehydratedState,
+  Hydrate,
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
+import { PersistGate } from 'redux-persist/integration/react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux'
 import { AutoRefreshAuth } from 'src/auth/AutoRefreshAuth'
-import { store } from 'src/redux/store'
+import { persistor, store } from 'src/redux/store'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedState }>) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -37,29 +45,33 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <AutoRefreshAuth>
-          <Component {...pageProps} />
-          <Toaster
-            position="bottom-right"
-            toastOptions={{
-              success: {
-                style: {
-                  background: 'green',
-                  color: '#fff'
-                }
-              },
-              error: {
-                style: {
-                  background: 'red',
-                  color: '#fff'
-                }
-              }
-            }}
-          />
-        </AutoRefreshAuth>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <PersistGate loading={<>Loading redux state...</>} persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps?.dehydratedState}>
+            <AutoRefreshAuth>
+              <Component {...pageProps} />
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  success: {
+                    style: {
+                      background: 'green',
+                      color: '#fff'
+                    }
+                  },
+                  error: {
+                    style: {
+                      background: 'red',
+                      color: '#fff'
+                    }
+                  }
+                }}
+              />
+            </AutoRefreshAuth>
+          </Hydrate>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </PersistGate>
     </Provider>
   )
 }

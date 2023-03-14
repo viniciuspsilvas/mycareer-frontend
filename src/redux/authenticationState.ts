@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { User } from 'src/generated/graphql'
+import { LoginResponse, User } from 'src/generated/graphql'
 
 import { RootState } from './store'
 
@@ -14,7 +14,7 @@ export const authenticationSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
-    authenticate: (state, action: PayloadAction<{ user: User; accessToken: string }>) => {
+    authenticate: (state, action: PayloadAction<LoginResponse>) => {
       state.user = action.payload.user
       state.accessToken = action.payload.accessToken
     }

@@ -2,7 +2,7 @@ import { getEnv } from '@lib/Environment'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { gql, request } from 'graphql-request'
-import { User } from 'src/generated/graphql'
+import { LoginResponse, User } from 'src/generated/graphql'
 
 const endpoint: string = getEnv().NEXT_PUBLIC_API_URL
 
@@ -20,7 +20,7 @@ export const useLogin = () =>
   useMutation(({ email, password }: { email: string; password: string }) => login(email, password))
 
 const login = async (email: string, password: string) => {
-  const result = await request<{ login: { accessToken: string; user: User } }>(
+  const result = await request<{ login: LoginResponse }>(
     endpoint,
     gql`
       mutation Login($password: String!, $email: String!) {
