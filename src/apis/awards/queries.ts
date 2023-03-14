@@ -1,6 +1,7 @@
+import { protectedRequest } from '@lib/common/util'
 import { getEnv } from '@lib/Environment'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { gql, request } from 'graphql-request'
+import { useQuery } from '@tanstack/react-query'
+import { gql } from 'graphql-request'
 import { Award } from 'src/generated/graphql'
 
 const GET_AWARD = 'award'
@@ -10,7 +11,7 @@ const endpoint: string = getEnv().NEXT_PUBLIC_API_URL
 
 export const useAwards = () => {
   return useQuery<Award[], Error>([ALL_AWARDS], async () => {
-    const result = await request(
+    const result = await protectedRequest<{ awards: Award[] }>(
       endpoint,
       gql`
         query Awards {

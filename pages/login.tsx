@@ -4,16 +4,23 @@ import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useLogin } from 'src/apis/auth/queries'
 import { UserInput } from 'src/generated/graphql'
+import { authenticate } from 'src/redux/authenticationState'
+import { useAppDispatch } from 'src/redux/hooks'
 
 const CreateQuestionPage: NextPage = () => {
+  const dispatch = useAppDispatch()
   const router = useRouter()
 
   const { isLoading, mutate } = useLogin()
+
   const onSubmit = (data: UserInput) => {
     mutate(data, {
-      onSuccess: (_, variables) => {
+      onSuccess: (data, variables) => {
         toast.success(`Logged!`)
-        // router.back()
+
+        dispatch(authenticate(data))
+
+        router.push('/admin')
       },
       onError: (error: any) => toast.error(`Invalid login.`)
     })
