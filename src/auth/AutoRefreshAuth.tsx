@@ -1,8 +1,11 @@
+import { useRestrictedRouteCheck } from '@hooks/useRestrictedRouteCheck'
+import { getCurrentPathname, redirectToRoute, Routes } from '@lib/common/route'
 import { isValidAccessToken } from '@lib/common/utils/authentication'
 import { getEnv } from '@lib/Environment'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { isEmpty } from 'lodash'
+import Error from 'next/error'
 import { FC, useEffect, useState } from 'react'
 import { LoginResponse } from 'src/generated/graphql'
 import { authenticate, getAccessToken } from 'src/redux/authenticationState'
@@ -39,15 +42,35 @@ export const AutoRefreshAuth: FC<{ children?: React.ReactNode }> = ({ children =
   })
 
   useEffect(() => {
+    // TODO For some reason the mutation is not been involked
+    console.log(
+      '### accessToken || !isValidAccessToken',
+      accessToken,
+      isValidAccessToken(),
+      !accessToken || !isValidAccessToken()
+    )
+
+    // TODO For some reason the mutation is not been involked
+
     if (!accessToken || !isValidAccessToken()) mutate()
+    // else setIsLoading(false)
   }, [accessToken, mutate])
+
+  const { status, reason } = useRestrictedRouteCheck()
 
   if (isLoading) return <AutoRefreshLoading />
 
+  if (status === 401) redirectToRoute(Routes.login, { callbackUrl: getCurrentPathname() }, true)
+
   return (
     <div>
-      AppLayout
-      {children}
+      {status && status !== 401 ? (
+        <div className="w-full">
+          <Error statusCode={status} title={reason} />
+        </div>
+      ) : (
+        <>{children}</>
+      )}
     </div>
   )
 }
