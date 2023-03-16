@@ -1,9 +1,8 @@
 import { getEnv } from '@lib/Environment'
 import { request, RequestDocument, Variables } from 'graphql-request'
 import { merge } from 'lodash-es'
+import { getSession } from 'next-auth/react'
 import { refreshToken } from 'src/apis/auth/queries'
-import { authenticate } from 'src/redux/authenticationState'
-import { store } from 'src/redux/store'
 import { AuthenticationTokenError } from './errors/errors'
 import { isValidAccessToken } from './utils/authentication'
 
@@ -22,7 +21,8 @@ export const protectedRequest = async <T = any, V = Variables>(
 ): Promise<T> => {
   let resp = null
 
-  const accessToken = store.getState().authentication.accessToken
+  const session = await getSession()
+  const accessToken = session?.user.accessToken
 
   try {
     if (!isValidAccessToken()) {
@@ -45,10 +45,11 @@ const renewAccessToken = async () => {
   try {
     console.log('### renewAccessToken')
     // Get the new access token
-    const { accessToken, user } = await refreshToken()
+    const { accessToken } = await refreshToken()
 
     // Save the new token to client state
-    store.dispatch(authenticate({ accessToken, user }))
+    const session = await getSession()
+    if (session) session.user.accessToken = accessToken
   } catch (error) {
     console.error(error)
     throw new AuthenticationTokenError()

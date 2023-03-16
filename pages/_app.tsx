@@ -10,13 +10,13 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
-import { PersistGate } from 'redux-persist/integration/react'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import AuthProvider from '@lib/AuthProvider'
 import type { AppProps } from 'next/app'
 import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { Provider } from 'react-redux'
-import { AutoRefreshAuth } from 'src/auth/AutoRefreshAuth'
+import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from 'src/redux/store'
 import '../styles/globals.css'
 
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
       <PersistGate loading={<>Loading redux state...</>} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps?.dehydratedState}>
-            <AutoRefreshAuth>
+            <AuthProvider>
               <Component {...pageProps} />
               <Toaster
                 position="bottom-right"
@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
                   }
                 }}
               />
-            </AutoRefreshAuth>
+            </AuthProvider>
           </Hydrate>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

@@ -15,10 +15,12 @@ export type Scalars = {
 
 export type Award = {
   __typename?: 'Award';
+  createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   grantedAt: Scalars['DateTime'];
   id: Scalars['ID'];
   title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type AwardInput = {
@@ -28,15 +30,9 @@ export type AwardInput = {
   title: Scalars['String'];
 };
 
-export type LoginResponse = {
-  __typename?: 'LoginResponse';
-  accessToken: Scalars['String'];
-  user: User;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
-  login: LoginResponse;
+  login: User;
   logout: Scalars['Boolean'];
   revokeRefreshTokensForUser: Scalars['Boolean'];
   /** Create or update a single award record. */
@@ -76,12 +72,15 @@ export type Query = {
 
 export type User = {
   __typename?: 'User';
+  accessToken?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   firstname: Scalars['String'];
   id: Scalars['ID'];
   lastname: Scalars['String'];
   mobile?: Maybe<Scalars['String']>;
   tokenVersion?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
 export type UserInput = {

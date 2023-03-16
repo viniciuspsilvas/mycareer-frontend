@@ -1,15 +1,18 @@
 import { decode, JwtPayload } from 'jsonwebtoken'
-import { store } from 'src/redux/store'
+import { getSession } from 'next-auth/react'
 
 type JWTDecodeReturnType = JwtPayload & {}
 
-export const isAuthenticated = () => {
-  const state = store.getState()
-  return !!state.authentication?.accessToken
+export const isAuthenticated = async () => {
+  const session = await getSession()
+  const accessToken = session?.user.accessToken
+
+  return !!accessToken
 }
 
-export const isValidAccessToken = () => {
-  const accessToken = store.getState().authentication.accessToken
+export const isValidAccessToken = async () => {
+  const session = await getSession()
+  const accessToken = session?.user.accessToken
   return !!accessToken && validateAccessToken(accessToken)
 }
 export const decodeAuthToken = (token: string) => decode(token) as JWTDecodeReturnType
