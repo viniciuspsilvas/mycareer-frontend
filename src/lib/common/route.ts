@@ -13,7 +13,8 @@ export enum Routes {
 
 export interface IRouteSetting {
   authenticationRequired: boolean
-  permittedRoles?: Array<AuthRoles> | undefined
+  // TODO: remove it cause the user has no role yet
+  // permittedRoles?: Array<AuthRoles> | undefined
 }
 
 type IRouteSettings = {
@@ -65,20 +66,3 @@ export const getRouteQueryParams = () => {
   }
   return {}
 }
-
-// export const createLoginCallbackUrl = (url?: string) => ({ callbackUrl: getLoginCallbackUrl(url) })
-// export const getLoginCallbackUrl = (url?: string) => {
-//   if (url && ![Routes.login].includes(url as Routes)) {
-//     return url
-//   }
-//   return '/'
-// }
-
-// export const getRouteRedirectRouteByRole = (role?: AuthRoles) => {
-//   switch (role) {
-//     case AuthRoles.globalSuper:
-//       return Routes.admin
-//     default:
-//       return Routes.admin
-//   }
-// }
