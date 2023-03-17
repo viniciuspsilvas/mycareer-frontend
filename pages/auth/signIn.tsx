@@ -2,8 +2,8 @@ import { SignInForm } from '@components/forms/SignInForm'
 import type { NextPage } from 'next'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { AdminLayout } from 'pages/admin/AdminLayout'
 import toast from 'react-hot-toast'
-import { useLogin } from 'src/apis/auth/queries'
 import { UserInput } from 'src/generated/graphql'
 
 const SignInPage: NextPage = () => {
@@ -27,6 +27,10 @@ const SignInPage: NextPage = () => {
     console.log('@@ result.status', result?.status)
   }
 
-  return <SignInForm onSubmit={onSubmit} />
+  return (
+    <AdminLayout>
+      <SignInForm onSubmit={onSubmit} />
+    </AdminLayout>
+  )
 }
 export default SignInPage
