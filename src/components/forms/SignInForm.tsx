@@ -2,12 +2,12 @@ import { Button, TextField, Typography } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { UserInput } from 'src/generated/graphql'
 
-export interface LoginFormProps {
+export interface SignInFormProps {
   onSubmit: SubmitHandler<UserInput>
   isLoading?: boolean
 }
 
-export const LoginForm = ({ isLoading = false, onSubmit }: LoginFormProps): JSX.Element => {
+export const SignInForm = ({ isLoading = false, onSubmit }: SignInFormProps): JSX.Element => {
   const {
     register,
     handleSubmit,

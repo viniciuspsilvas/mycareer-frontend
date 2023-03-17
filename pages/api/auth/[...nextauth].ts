@@ -1,3 +1,4 @@
+import { Routes } from '@lib/common/route'
 import { getEnv } from '@lib/Environment'
 import axios from 'axios'
 import NextAuth, { AuthOptions } from 'next-auth'
@@ -61,9 +62,11 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token, user }) {
       session.user = token as any
-
       return session
     }
+  },
+  pages: {
+    signIn: Routes.authSignIn
   }
 }
 export default NextAuth(authOptions)

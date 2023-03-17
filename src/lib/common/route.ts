@@ -3,12 +3,13 @@ import { Url } from 'url'
 import { AuthRoles } from './utils/authorization'
 
 export enum Routes {
+  root = '/',
   admin = '/admin',
   auth = '/auth',
+  authSignIn = '/auth/signIn',
   awards = '/admin/awards',
   adminAwardsCreate = '/admin/awards/create',
-  adminAwardsEdit = '/admin/awards/[id]/edit',
-  login = '/login'
+  adminAwardsEdit = '/admin/awards/[id]/edit'
 }
 
 export interface IRouteSetting {
