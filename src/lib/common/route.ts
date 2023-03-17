@@ -7,7 +7,7 @@ export enum Routes {
   admin = '/admin',
   auth = '/auth',
   authSignIn = '/auth/signIn',
-  awards = '/admin/awards',
+  adminAwards = '/admin/awards',
   adminAwardsCreate = '/admin/awards/create',
   adminAwardsEdit = '/admin/awards/[id]/edit'
 }

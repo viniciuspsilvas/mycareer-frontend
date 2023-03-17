@@ -1,6 +1,7 @@
 /**
  */
 
+import { Routes } from '@lib/common/route'
 import Link from 'next/link'
 import { FC } from 'react'
 import { UrlObject } from 'url'
@@ -12,7 +13,8 @@ export interface AdminSidebarProps {
 export const AdminSidebar: FC<AdminSidebarProps> = ({ children }) => {
   return (
     <nav className="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
-      <MenuItem href="/admin/awards" name="Awards" />
+      <MenuItem href={Routes.admin} name="Home" />
+      <MenuItem href={Routes.adminAwards} name="Awards" />
       {/* <MenuItem href="/admin/certifications" name="Certifications" />
       <MenuItem href="/admin/details" name="Details" />
       <MenuItem href="/admin/educations" name="Educations" /> */}
