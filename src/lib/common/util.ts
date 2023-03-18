@@ -6,13 +6,7 @@ import { refreshToken } from 'src/apis/auth/queries'
 import { AuthenticationTokenError } from './errors/errors'
 import { isValidAccessToken } from './utils/authentication'
 
-export function getGraphqlRequestUrl(operationName?: string, variables?: Variables) {
-  const env = getEnv()
-  return operationName
-    ? `${env.NEXT_PUBLIC_API_URL}?q=${operationName}&v=${JSON.stringify(variables)}`
-    : env.NEXT_PUBLIC_API_URL
-}
-
+const env = getEnv()
 export const protectedRequest = async <T = any, V = Variables>(
   operationName: string,
   document: RequestDocument,
@@ -32,7 +26,7 @@ export const protectedRequest = async <T = any, V = Variables>(
     const headers = accessToken ? merge({}, requestHeaders, { authorization: `Bearer ${accessToken}` }) : requestHeaders
     // TODO:
     // @ts-ignore: temporary ignore the typings
-    resp = await request<T, V>(getGraphqlRequestUrl(operationName, variables), document, variables, headers)
+    resp = await request<T, V>(env.NEXT_PUBLIC_API_URL, document, variables, headers)
   } catch (error: any) {
     console.error(error)
     throw new Error(error)
