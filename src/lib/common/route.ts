@@ -30,7 +30,7 @@ export const routeSettings: IRouteSettings = {
     authenticationRequired: true
     // permittedRoles: [AuthRoles.globalAdmin]
   },
-  [Routes.awards]: {
+  [Routes.adminAwards]: {
     authenticationRequired: true
     // permittedRoles: [AuthRoles.globalAdmin]
   }

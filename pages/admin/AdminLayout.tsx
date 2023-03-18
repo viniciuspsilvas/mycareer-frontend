@@ -1,6 +1,6 @@
+import { NextLinkComposed } from '@components/global/Link'
+import { Routes } from '@lib/common/route'
 import { AccountCircle } from '@mui/icons-material'
-import ApprovalIcon from '@mui/icons-material/Approval'
-import DvrIcon from '@mui/icons-material/Dvr'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import HomeIcon from '@mui/icons-material/Home'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -18,8 +18,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { isEqual } from 'lodash'
 import { signOut, useSession } from 'next-auth/react'
-import * as React from 'react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const drawerWidth = 240
 export interface AdminLayoutProps {
@@ -27,9 +29,27 @@ export interface AdminLayoutProps {
   children?: JSX.Element | JSX.Element[]
 }
 
+const ItemSideMenu: React.FC<{ pathname: string; label: string; icon: JSX.Element | null }> = ({
+  pathname,
+  label,
+  icon
+}) => {
+  const router = useRouter()
+  const currentPath = router.pathname
+
+  return (
+    <ListItem disablePadding>
+      <ListItemButton component={NextLinkComposed} to={{ pathname }} selected={isEqual(currentPath, pathname)}>
+        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+        <ListItemText primary={label} />
+      </ListItemButton>
+    </ListItem>
+  )
+}
+
 export const AdminLayout: React.FC<AdminLayoutProps> = (props) => {
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const { data: session } = useSession()
 
   const user = session?.user
@@ -52,43 +72,13 @@ export const AdminLayout: React.FC<AdminLayoutProps> = (props) => {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Home'} />
-          </ListItemButton>
-        </ListItem>
+        <ItemSideMenu label="Home" pathname={Routes.admin} icon={<HomeIcon />} />
       </List>
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <EmojiEventsIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Awards'} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <ApprovalIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Certificates'} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <DvrIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Skills'} />
-          </ListItemButton>
-        </ListItem>
+        <ItemSideMenu label="Awards" pathname={Routes.adminAwards} icon={<EmojiEventsIcon />} />
+        {/* <ItemSideMenu label="Certificates" pathname={Routes.adminCertificates} icon={<EmojiEventsIcon />} />
+        <ItemSideMenu label="Skills" pathname={Routes.adminSkills} icon={<EmojiEventsIcon />} /> */}
       </List>
     </div>
   )
