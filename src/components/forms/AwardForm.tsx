@@ -1,11 +1,11 @@
 import { Button, TextField, Typography } from '@mui/material'
 import router from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { Award } from 'src/generated/graphql'
+import { Award, AwardInput } from 'src/generated/graphql'
 
 export interface AwardFormProps {
   data?: Award
-  onSubmit: SubmitHandler<Award>
+  onSubmit: SubmitHandler<AwardInput>
   isLoading?: boolean
 }
 
@@ -15,7 +15,7 @@ export const AwardForm = ({ data, isLoading = false, onSubmit }: AwardFormProps)
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<Award>({
+  } = useForm<AwardInput>({
     defaultValues: data
   })
 
@@ -41,6 +41,12 @@ export const AwardForm = ({ data, isLoading = false, onSubmit }: AwardFormProps)
             {...register('description', { required: 'This field is required' })}
             error={!!errors.description}
             helperText={`${errors.description?.message || ''}`}
+          />
+          <TextField
+            label="Granted At"
+            {...register('grantedAt', { required: 'This field is required' })}
+            error={!!errors.grantedAt}
+            helperText={`${errors.grantedAt?.message || ''}`}
           />
         </div>
         <div className="flex flex-row space-x-4 justify-center">
