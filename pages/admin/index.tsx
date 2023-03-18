@@ -1,11 +1,10 @@
 import { Typography } from '@mui/material'
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
+import { useGetMe } from 'src/apis/users/queries'
 import { AdminLayout } from './AdminLayout'
 
 const AdminPage: NextPage = () => {
-  const { data: session } = useSession()
-  const user = session?.user
+  const { data: user } = useGetMe()
 
   if (!user) return <>You are not logged in.</>
 
