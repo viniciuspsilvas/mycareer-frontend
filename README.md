@@ -87,3 +87,12 @@ To setup Storybook, Testing React Query, Mock Service Worker,
 - [https://www.youtube.com/watch?v=MhFSuOjU624&ab_channel=BrunoAntunes]
 
 -[https://www.youtube.com/watch?v=mSWYQUXXF5Q&list=PLC3y8-rFHvwirqe1KHFCHJ0RqNuN61SJd&index=39&ab_channel=Codevolution]
+
+- JWT Authentication Node.js Tutorial with GraphQL and React
+  [https://www.youtube.com/watch?v=25GS0MLT8JU&ab_channel=BenAwad]
+
+- Role Based Authorization with Next-Auth and Next.js 13
+  [https://www.youtube.com/watch?v=xJ6efexXJ7I&ab_channel=SakuraDev]
+
+- Refresh Token with next-auth and Axios Interceptors in Next.js 13 Authentication
+  [https://www.youtube.com/watch?v=RPl0r-Yl6pU&ab_channel=SakuraDev]
