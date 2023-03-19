@@ -52,18 +52,3 @@ const logout = async () =>
       }
     `
   )
-
-export const useRefreshToken = () => {
-  return useMutation(refreshToken)
-}
-
-export const refreshToken = async () => {
-  try {
-    const response = await api.post('/refresh_token')
-    console.log('@!@@', response.data)
-    return response.data
-  } catch (error) {
-    console.error(error)
-    return {}
-  }
-}
