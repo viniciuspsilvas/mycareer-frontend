@@ -16,29 +16,30 @@ const api = axios.create({
 })
 
 /* Login user hook */
-export const useLogin = () =>
-  useMutation(({ email, password }: { email: string; password: string }) => login(email, password))
+// export const useLogin = () =>
+//   useMutation(({ email, password }: { email: string; password: string }) => login(email, password))
 
-const login = async (email: string, password: string) => {
-  const result = await request<{ login: User }>(
-    endpoint,
-    gql`
-      mutation Login($password: String!, $email: String!) {
-        login(password: $password, email: $email) {
-          user {
-            id
-            firstname
-            lastname
-          }
-          accessToken
-        }
-      }
-    `,
-    { email, password }
-  )
+// const login = async (email: string, password: string) => {
+//   const result = await request<{ login: User }>(
+//     endpoint,
+//     gql`
+//       mutation Login($password: String!, $email: String!) {
+//         login(password: $password, email: $email) {
+//           user {
+//             id
+//             firstname
+//             lastname
+//           }
+//           # RETURN the refreshToken as well
+//           accessToken
+//         }
+//       }
+//     `,
+//     { email, password }
+//   )
 
-  return result.login
-}
+//   return result.login
+// }
 
 /* Logout user hook */
 export const useLogout = () => useMutation(() => logout())
