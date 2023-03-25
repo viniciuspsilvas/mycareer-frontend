@@ -32,6 +32,7 @@ export type AwardInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  deleteAwardById: Award;
   login: User;
   logout: Scalars['Boolean'];
   revokeRefreshTokensForUser: Scalars['Boolean'];
@@ -39,6 +40,11 @@ export type Mutation = {
   upsertAward: Award;
   /** Create or update a single user record. */
   upsertUser: User;
+};
+
+
+export type MutationDeleteAwardByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -64,10 +70,16 @@ export type MutationUpsertUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  awardById: Award;
   awards: Array<Award>;
   healthLocal?: Maybe<Scalars['String']>;
   me?: Maybe<User>;
   users: Array<User>;
+};
+
+
+export type QueryAwardByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type User = {
@@ -79,6 +91,7 @@ export type User = {
   id: Scalars['ID'];
   lastname: Scalars['String'];
   mobile?: Maybe<Scalars['String']>;
+  refreshToken?: Maybe<Scalars['String']>;
   tokenVersion?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
