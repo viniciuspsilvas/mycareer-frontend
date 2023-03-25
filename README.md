@@ -96,3 +96,6 @@ To setup Storybook, Testing React Query, Mock Service Worker,
 
 - Refresh Token with next-auth and Axios Interceptors in Next.js 13 Authentication
   [https://www.youtube.com/watch?v=RPl0r-Yl6pU&ab_channel=SakuraDev]
+
+- NextAuth.js JWT session with credentials provider for beginners
+  [https://remaster.com/blog/next-auth-jwt-session]
