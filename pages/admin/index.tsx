@@ -1,10 +1,10 @@
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import { NextPage } from 'next'
 import { useGetMe } from 'src/apis/users/queries'
 import { AdminLayout } from './AdminLayout'
 
 const AdminPage: NextPage = () => {
-  const { data: user } = useGetMe()
+  const { data: user, refetch } = useGetMe()
 
   if (!user) return <>You are not logged in.</>
 
@@ -25,6 +25,20 @@ const AdminPage: NextPage = () => {
       <div className="flex space-x-2 ">
         <div>Email:</div>
         <div className="font-semibold">{user.email}</div>
+      </div>
+      <div className="flex space-x-2 ">
+        {/* <Link href="/admin/awards/create"> */}
+        <Button
+          variant="contained"
+          type="button"
+          onClick={(e) => {
+            e.preventDefault()
+            refetch()
+          }}
+        >
+          Refresh
+        </Button>
+        {/* </Link> */}
       </div>
     </AdminLayout>
   )
