@@ -1,4 +1,4 @@
-import { protectedRequest } from '@lib/common/graphqlClient'
+import { protectedRequest } from 'src/clients/graphqlClient'
 import { getEnv } from '@lib/Environment'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
