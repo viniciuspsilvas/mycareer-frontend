@@ -92,30 +92,17 @@ The aim of refreshAccessToken function is to use the refresh token stored in our
 Be aware that our backend is providing us with expiration time in seconds and output from Date.now() is in milliseconds, that's why we need to divide it by 1000.
     */
     async jwt({ token, user }) {
-      console.log('### TOKEN REQUESTED', token)
-      if (user) {
-        console.log('### AFTER LOGIN')
-        return { ...token, ...user }
-      }
+      if (user) return { ...token, ...user }
 
       // on subsequent calls, token is provided and we need to check if it's expired
-
-      const isValidToken = validateAccessToken(token.accessToken)
-
-      console.log('### isValidToken', isValidToken)
-      if (isValidToken) {
-        console.log('### TOKEN STILL VALID')
+      if (validateAccessToken(token.accessToken)) {
         return { ...token }
       }
       //it the token has expired and has a refreshToken, it gets a new token
       else if (token?.refreshToken) {
-        console.log('### REFRESHING TOKEN')
         const newToken = await refreshAccessToken(token)
         return { ...newToken }
       }
-
-      console.log('### RETURNING SAME TOKEN')
-
       return { ...token }
     },
     async session({ session, token }) {

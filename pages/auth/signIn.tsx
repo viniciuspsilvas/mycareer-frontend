@@ -24,7 +24,6 @@ const SignInPage: NextPage = () => {
     if (result?.ok) {
       router.push(callbackUrl)
     }
-    console.log('@@ result.status', result?.status)
   }
 
   return (
