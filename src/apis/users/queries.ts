@@ -1,8 +1,8 @@
-import { protectedRequest } from '@lib/common/util'
+import { protectedRequest } from '@lib/common/graphqlClient'
 import { getEnv } from '@lib/Environment'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { gql, request } from 'graphql-request'
-import { Award, User, UserInput } from 'src/generated/graphql'
+import { User, UserInput } from 'src/generated/graphql'
 
 const endpoint: string = getEnv().NEXT_PUBLIC_API_URL
 
