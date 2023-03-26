@@ -42,6 +42,11 @@ Don't import the all handlers into one single stories. Because it does not get c
 To setup Storybook, Testing React Query, Mock Service Worker,
 [https://tkdodo.eu/blog/testing-react-query]
 
+## Task in Trello
+
+Trello,
+[https://trello.com/b/q32R6jIV/my-career-app]
+
 ## @storybook/testing-react is a solution to reuse your Storybook stories in your React tests
 
 [https://github.com/storybookjs/testing-react]
