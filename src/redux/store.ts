@@ -1,7 +1,6 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
-import authenticationReducer from './authenticationState'
+import globalReducer from './globalState'
 import storage from './storage'
 
 const persistConfig = {
@@ -9,7 +8,7 @@ const persistConfig = {
   storage
 }
 const reducers = combineReducers({
-  authentication: authenticationReducer
+  global: globalReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)
