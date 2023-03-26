@@ -26,13 +26,13 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
       new QueryClient({
         // TODO: setup for development
         defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: false,
-            refetchOnMount: false,
-            retry: 1,
-            staleTime: 5 * 1000
-          }
+          // queries: {
+          //   refetchOnWindowFocus: false,
+          //   refetchOnReconnect: false,
+          //   refetchOnMount: false,
+          //   retry: 1,
+          //   staleTime: 5 * 1000
+          // }
         },
         queryCache: new QueryCache({
           onError: (error: any) => toast.error(`Something went wrong during the query: ${error.message as Error}`)
