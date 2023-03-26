@@ -1,13 +1,41 @@
 import { Routes } from '@lib/common/route'
+import { validateAccessToken } from '@lib/common/utils/authentication'
 import { getEnv } from '@lib/Environment'
 import axios from 'axios'
 import NextAuth, { AuthOptions } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const endpoint: string = getEnv().NEXT_PUBLIC_API_URL
 
 if (!process.env.NEXTAUTH_SECRET) {
   throw new Error('please provide process.env.NEXTAUTH_SECRET environment variable')
+}
+
+const refreshAccessToken = async (token: JWT): Promise<JWT> => {
+  const { refreshToken } = token
+  const mutation = `
+    mutation RefreshToken($refreshToken: String!) {
+      refreshToken(refreshToken: $refreshToken) {
+        id
+        firstname
+        lastname
+        email
+        accessToken
+        refreshToken
+      }
+    }
+  `
+  const {
+    data: { data }
+  } = await axios.post(endpoint, {
+    query: mutation,
+    variables: { refreshToken },
+    operationName: 'RefreshToken'
+  })
+
+  const user = data.refreshToken
+  return Promise.resolve({ ...token, ...user })
 }
 
 export const authOptions: AuthOptions = {
@@ -34,10 +62,10 @@ export const authOptions: AuthOptions = {
               lastname
               email
               accessToken
+              refreshToken
             }
           }
         `
-
         const {
           data: { data }
         } = await axios.post(endpoint, {
@@ -57,10 +85,40 @@ export const authOptions: AuthOptions = {
     })
   ],
   callbacks: {
+    /**
+This callback is called whenever a JSON Web Token is created or accessed by the client. 
+Here is the right place to implement token rotation. 
+The aim of refreshAccessToken function is to use the refresh token stored in our token object and use it to acquire a new access token with an updated expiration time. 
+Be aware that our backend is providing us with expiration time in seconds and output from Date.now() is in milliseconds, that's why we need to divide it by 1000.
+    */
     async jwt({ token, user }) {
-      return { ...token, ...user }
+      console.log('### TOKEN REQUESTED', token)
+      if (user) {
+        console.log('### AFTER LOGIN')
+        return { ...token, ...user }
+      }
+
+      // on subsequent calls, token is provided and we need to check if it's expired
+
+      const isValidToken = validateAccessToken(token.accessToken)
+
+      console.log('### isValidToken', isValidToken)
+      if (isValidToken) {
+        console.log('### TOKEN STILL VALID')
+        return { ...token }
+      }
+      //it the token has expired and has a refreshToken, it gets a new token
+      else if (token?.refreshToken) {
+        console.log('### REFRESHING TOKEN')
+        const newToken = await refreshAccessToken(token)
+        return { ...newToken }
+      }
+
+      console.log('### RETURNING SAME TOKEN')
+
+      return { ...token }
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user = token as any
       return session
     }
