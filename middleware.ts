@@ -6,7 +6,14 @@ import { UserRole } from 'src/generated/graphql'
 
 export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname
-  const protectedPaths = [Routes.root, Routes.admin, Routes.user, Routes.adminAwards]
+  const protectedPaths = [
+    Routes.root,
+    Routes.admin,
+    Routes.user,
+    Routes.adminAwards,
+    Routes.adminAwardsCreate,
+    Routes.adminAwardsEdit
+  ]
 
   const isPathProtected = protectedPaths?.some((path) => pathname == path)
   const signInUrl = new URL(Routes.authSignIn, req.url)

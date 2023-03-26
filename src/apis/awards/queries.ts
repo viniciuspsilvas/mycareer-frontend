@@ -31,27 +31,32 @@ export const useAwards = () => {
 }
 
 export const useAwardById = ({ id }: { id: string }) => {
-  return useQuery<Award, Error>([GET_AWARD, id], async () => {
-    const result = await protectedRequest(
-      endpoint,
-      gql`
-        query AwardById($id: String!) {
-          awardById(id: $id) {
-            id
-            title
-            description
-            grantedAt
-            createdAt
-            updatedAt
+  return useQuery<Award, Error>(
+    [GET_AWARD, id],
+    async () => {
+      const result = await protectedRequest(
+        endpoint,
+        gql`
+          query AwardById($id: String!) {
+            awardById(id: $id) {
+              id
+              title
+              description
+              grantedAt
+              createdAt
+              updatedAt
+            }
           }
-        }
-      `,
-      { id }
-    )
-    return result.awardById
-  })
+        `,
+        { id }
+      )
+      return result.awardById
+    },
+    {
+      enabled: !!id
+    }
+  )
 }
-
 export const useUpsertAward = () => {
   const queryClient = useQueryClient()
 
@@ -88,8 +93,8 @@ export const useDeleteAward = () => {
   const queryClient = useQueryClient()
   return useMutation(({ id }: { id: string }) => deleteAward(id), {
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: [ALL_AWARDS] })
       queryClient.invalidateQueries({ queryKey: [GET_AWARD] })
+      queryClient.invalidateQueries({ queryKey: [ALL_AWARDS] })
     }
   })
 }
