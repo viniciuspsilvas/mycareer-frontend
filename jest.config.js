@@ -22,6 +22,7 @@ const customJestConfig = {
     moduleNameMapper: {
         '@/(.*)$': '<rootDir>/src/$1',
         "@lib/(.*)": "<rootDir>/src/lib/$1",
+        "@i18n/(.*)": "<rootDir>/i18n/$1",
         "@components/(.*)": "<rootDir>/src/components/$1"
     },
     modulePathIgnorePatterns: ['<rootDir>/infra/', '<rootDir>/src/lib/', '<rootDir>/src/generated/', '<rootDir>/pages/api/'],
