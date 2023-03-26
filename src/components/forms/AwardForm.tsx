@@ -16,7 +16,12 @@ export const AwardForm = ({ data, isLoading = false, onSubmit }: AwardFormProps)
     reset,
     formState: { errors }
   } = useForm<AwardInput>({
-    defaultValues: data
+    defaultValues: {
+      id: data?.id,
+      description: data?.description,
+      title: data?.title,
+      grantedAt: data?.grantedAt || new Date()
+    }
   })
 
   const goBack = () => router.back()

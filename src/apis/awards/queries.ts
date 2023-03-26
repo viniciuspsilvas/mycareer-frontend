@@ -31,31 +31,25 @@ export const useAwards = () => {
 }
 
 export const useAwardById = ({ id }: { id: string }) => {
-  return useQuery<Award, Error>(
-    [GET_AWARD, id],
-    async () => {
-      const result = await protectedRequest(
-        endpoint,
-        gql`
-          query AwardById($id: String!) {
-            awardById(id: $id) {
-              id
-              title
-              description
-              grantedAt
-              createdAt
-              updatedAt
-            }
+  return useQuery<Award, Error>([GET_AWARD, id], async () => {
+    const result = await protectedRequest(
+      endpoint,
+      gql`
+        query AwardById($id: String!) {
+          awardById(id: $id) {
+            id
+            title
+            description
+            grantedAt
+            createdAt
+            updatedAt
           }
-        `,
-        { id }
-      )
-      return result.awardById
-    },
-    {
-      enabled: !!id
-    }
-  )
+        }
+      `,
+      { id }
+    )
+    return result.awardById
+  })
 }
 
 export const useUpsertAward = () => {
@@ -64,6 +58,7 @@ export const useUpsertAward = () => {
   // Use the same createQuery for create and update
   return useMutation((data: AwardInput) => upsertAward(data), {
     onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: [GET_AWARD] })
       queryClient.invalidateQueries({ queryKey: [ALL_AWARDS] })
     },
     // TODO: check it out 🚀 only server errors will go to the Error Boundary
@@ -94,6 +89,7 @@ export const useDeleteAward = () => {
   return useMutation(({ id }: { id: string }) => deleteAward(id), {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [ALL_AWARDS] })
+      queryClient.invalidateQueries({ queryKey: [GET_AWARD] })
     }
   })
 }

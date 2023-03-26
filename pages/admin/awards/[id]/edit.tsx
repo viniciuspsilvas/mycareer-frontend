@@ -12,8 +12,8 @@ const EditAwardPage: NextPage = () => {
   const id = router.query?.id as string
 
   const { data, isFetching } = useAwardById({ id })
-
   const { isLoading, mutate } = useUpsertAward()
+
   const onSubmit = (award: AwardInput) => {
     mutate(award, {
       onSuccess: (_, variables) => {
