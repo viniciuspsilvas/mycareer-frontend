@@ -22,6 +22,7 @@
         // "@apis/*": ["src/apis/*"],
         "@components/*": ["src/components/*"],
         "@hooks/*": ["src/hooks/*"],
+        "@i18n/*": ["i18n/*"],
         "@lib/*": ["src/lib/*"]
       }
     },

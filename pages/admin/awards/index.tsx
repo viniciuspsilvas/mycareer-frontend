@@ -22,37 +22,41 @@ import toast from 'react-hot-toast'
 import { useAwards, useDeleteAward } from 'src/apis/awards/queries'
 import { Award } from 'src/generated/graphql'
 import { AdminLayout } from '../AdminLayout'
+import { en } from './i18n/en'
+import { en as baseEn } from '@i18n/en'
 
 const AwardsPage: NextPage = () => {
-  const { data, error, isFetching } = useAwards()
+  const { data, error: awardsError, isFetching: isFetchingAwards } = useAwards()
 
-  // TODO: combine isLoading and isFetching?
-  const { isLoading, mutate, error: mutationError } = useDeleteAward()
+  const { actions, label } = baseEn
+  const { title } = en
+
+  const { isLoading: isLoadingAward, mutate, error: deleteAwardError } = useDeleteAward()
   const handleDelete = (award: Award) => {
     mutate(
       { id: award.id },
       {
-        onSuccess: (_, variables) => {
+        onSuccess: (_) => {
           toast.success(`${award?.title} ${'deleted'}`)
         }
       }
     )
   }
 
-  if (isLoading) return <AdminListLoading />
-  if (mutationError) return <ErrorToaster error={mutationError} />
+  const error = awardsError || deleteAwardError
+  const isLoading = isLoadingAward || isFetchingAwards
 
-  if (isFetching) return <AdminListLoading />
+  if (isLoading) return <AdminListLoading />
   if (error) return <ErrorToaster error={error} />
 
   return (
     <AdminLayout>
       <section className="space-y-4">
-        <Typography variant="h2">Admin Awards</Typography>
+        <Typography variant="h2">{title}</Typography>
 
         <Link href="/admin/awards/create">
           <Button variant="contained" type="button">
-            Add Award
+            {actions.create}
           </Button>
         </Link>
 
@@ -63,13 +67,13 @@ const AwardsPage: NextPage = () => {
             <Table sx={{ minWidth: 650 }} aria-label="Awards table">
               <TableHead>
                 <TableRow>
-                  <TableCell className="bg-gray-300 font-semibold">Title</TableCell>
-                  <TableCell className="bg-gray-300 font-semibold">Description</TableCell>
+                  <TableCell className="bg-gray-300 font-semibold">{label.title}</TableCell>
+                  <TableCell className="bg-gray-300 font-semibold">{label.description}</TableCell>
                   <TableCell colSpan={2} className="bg-gray-300 font-semibold"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data?.map((award, index) => (
+                {data?.map((award) => (
                   <TableRow key={award.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">
                       {award.title}
