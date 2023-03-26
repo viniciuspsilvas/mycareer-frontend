@@ -27,6 +27,7 @@ const upsertUser = async (data: UserInput) =>
           lastname
           mobile
           email
+          role
         }
       }
     `,
@@ -45,6 +46,7 @@ export const useGetMe = () =>
             lastname
             mobile
             email
+            role
           }
         }
       `

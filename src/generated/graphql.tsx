@@ -35,6 +35,7 @@ export type Mutation = {
   deleteAwardById: Award;
   login: User;
   logout: Scalars['Boolean'];
+  refreshToken: User;
   revokeRefreshTokensForUser: Scalars['Boolean'];
   /** Create or update a single award record. */
   upsertAward: Award;
@@ -51,6 +52,11 @@ export type MutationDeleteAwardByIdArgs = {
 export type MutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationRefreshTokenArgs = {
+  refreshToken: Scalars['String'];
 };
 
 
@@ -92,6 +98,7 @@ export type User = {
   lastname: Scalars['String'];
   mobile?: Maybe<Scalars['String']>;
   refreshToken?: Maybe<Scalars['String']>;
+  role: UserRole;
   tokenVersion?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -102,4 +109,11 @@ export type UserInput = {
   id?: InputMaybe<Scalars['ID']>;
   lastname: Scalars['String'];
   password: Scalars['String'];
+  role: Scalars['String'];
 };
+
+/** User role */
+export enum UserRole {
+  Admin = 'ADMIN',
+  User = 'USER'
+}

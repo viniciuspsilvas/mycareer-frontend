@@ -1,4 +1,4 @@
-import { User } from 'src/generated/graphql'
+import { User, UserRole } from 'src/generated/graphql'
 
 declare module 'next-auth' {
   /**
@@ -14,5 +14,6 @@ declare module 'next-auth/jwt' {
   //   /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
     accessToken: string
+    role: UserRole
   }
 }

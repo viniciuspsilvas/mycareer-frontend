@@ -23,6 +23,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
         email
         accessToken
         refreshToken
+        role
       }
     }
   `
@@ -63,6 +64,7 @@ export const authOptions: AuthOptions = {
               email
               accessToken
               refreshToken
+              role
             }
           }
         `

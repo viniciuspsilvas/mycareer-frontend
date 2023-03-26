@@ -1,10 +1,10 @@
 import Router from 'next/router'
 import { Url } from 'url'
-import { AuthRoles } from './utils/authorization'
 
 export enum Routes {
   root = '/',
   admin = '/admin',
+  user = '/user',
   auth = '/auth',
   authSignIn = '/auth/signIn',
   adminAwards = '/admin/awards',
