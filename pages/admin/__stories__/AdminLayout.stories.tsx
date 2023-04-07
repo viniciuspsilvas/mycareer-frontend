@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { AdminLayout, AdminLayoutProps } from '../AdminLayout'
+import { decorators } from 'src/__mocks__/decorators'
 
 export default {
   title: 'components/admin/AdminLayout',
@@ -9,3 +10,4 @@ export default {
 const Template = (args: AdminLayoutProps) => <AdminLayout {...args} />
 
 export const Primary: ComponentStory<typeof AdminLayout> = Template.bind({})
+Primary.decorators = decorators

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { reactQueryProviderDecorator } from 'src/__mocks__/decorators'
+import { decorators } from 'src/__mocks__/decorators'
 import {
   awardsEmptyMocked,
   awardsLoadingMocked,
@@ -16,13 +16,13 @@ export default {
 const Template = () => <AwardsPage />
 
 export const Primary: ComponentStory<typeof AwardsPage> = Template.bind({})
-Primary.decorators = [reactQueryProviderDecorator]
+Primary.decorators = decorators
 Primary.parameters = { msw: { handlers: [awardsQueryMocked, deleteOneAwardMocked] } }
 
 export const Loading: ComponentStory<typeof AwardsPage> = Template.bind({})
-Loading.decorators = [reactQueryProviderDecorator]
+Loading.decorators = decorators
 Loading.parameters = { msw: { handlers: [awardsLoadingMocked] } }
 
 export const Empty: ComponentStory<typeof AwardsPage> = Template.bind({})
-Empty.decorators = [reactQueryProviderDecorator]
+Empty.decorators = decorators
 Empty.parameters = { msw: { handlers: [awardsEmptyMocked] } }
