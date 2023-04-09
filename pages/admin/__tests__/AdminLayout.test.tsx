@@ -1,16 +1,32 @@
 import { render, screen } from '@testing-library/react'
-import AwardsPage from '../index'
+import { AdminLayout } from '../AdminLayout'
+jest.mock('next-auth/react')
+import { useSession } from 'next-auth/react'
+import { UserRole } from 'src/generated/graphql'
+
+const mockUseSession = useSession as jest.Mock
 
 describe('AdminLayout', () => {
-  test('renders unchanged', () => {
-    const { container } = render(<AwardsPage />)
-    expect(container).toMatchSnapshot()
-  })
-
   test('should render correctly', () => {
-    render(<AwardsPage />)
+    mockUseSession.mockReturnValue({
+      status: 'authenticated',
+      data: {
+        expires: new Date(Date.now() + 2 * 86400).toISOString(),
+        user: {
+          firstname: 'Vinicius',
+          lastname: 'Silva',
+          email: 'viniciuspsilvas@gmail.com',
+          password: '$2a$12$Uh940/y1XVEq4s3r9QCn8.XibUcqgiW3I0pIs1xDNsY23FVgd60/.',
+          createdAt: new Date(),
+          role: UserRole.Admin,
+          tokenVersion: 0
+        }
+      }
+    })
 
-    const link = screen.getByRole('link', { name: /My Career/i })
-    expect(link).toBeInTheDocument()
+    render(<AdminLayout />)
+
+    const text = screen.getByText(/My Career/i)
+    expect(text).toBeInTheDocument()
   })
 })

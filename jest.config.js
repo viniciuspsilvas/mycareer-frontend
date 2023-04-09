@@ -23,10 +23,12 @@ const customJestConfig = {
         '@/(.*)$': '<rootDir>/src/$1',
         "@lib/(.*)": "<rootDir>/src/lib/$1",
         "@i18n/(.*)": "<rootDir>/i18n/$1",
-        "@components/(.*)": "<rootDir>/src/components/$1"
+        "@components/(.*)": "<rootDir>/src/components/$1",
+        "^lodash-es$": "lodash"
     },
     modulePathIgnorePatterns: ['<rootDir>/infra/', '<rootDir>/src/lib/', '<rootDir>/src/generated/', '<rootDir>/pages/api/'],
     testEnvironment: 'jest-environment-jsdom',
+    // transformIgnorePatterns: [`<rootDir>/node_modules/(?!lodash-es)`],
     coveragePathIgnorePatterns: ['<rootDir>/src/apis/'],
     collectCoverageFrom: ['src/**/*.{ts,tsx}', 'pages/**/*.{ts,tsx}',
         '!src/**/*.{types,stories,constants,test,spec}.{ts,tsx}',
