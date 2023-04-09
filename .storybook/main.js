@@ -6,6 +6,7 @@ module.exports = {
     "../pages/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
+    "@tomfreudenberg/next-auth-mock/storybook",
     "storybook-addon-next-router",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -40,6 +41,7 @@ module.exports = {
       '@components': path.resolve(__dirname, "../src/components"),
       // '@apis': path.resolve(__dirname, "../src/apis"),
       '@lib': path.resolve(__dirname, "../src/lib"),
+      '@tomfreudenberg/next-auth-mock/storybook/preview-mock-auth-states': path.resolve(__dirname, 'previewMockAuthStates.js')
     };
 
     config.module.rules.push({

@@ -20,15 +20,7 @@ const reactQueryProviderDecorator = storyFn => {
   )
 }
 
-const nextAuthProviderDecorator = storyFn => {
-  return (
-    <AuthProvider >
-      {storyFn()}
-    </AuthProvider>
-  )
-}
-
-export const decorators = [reactQueryProviderDecorator, nextAuthProviderDecorator]
+export const decorators = [reactQueryProviderDecorator]
 
 // Used to wrap the unit tests (testing-library)
 export const wrapper = ({ children }) => (

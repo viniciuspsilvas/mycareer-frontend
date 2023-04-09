@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { AdminLayout, AdminLayoutProps } from '../AdminLayout'
 import { decorators } from 'src/__mocks__/decorators'
+import { AdminLayout, AdminLayoutProps } from '../AdminLayout'
 
 export default {
   title: 'components/admin/AdminLayout',
