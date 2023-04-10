@@ -11,7 +11,6 @@ export default {
 const Template = () => <EditAwardPage />
 
 export const Primary: ComponentStory<typeof EditAwardPage> = Template.bind({})
-Primary.decorators = decorators
 Primary.parameters = {
   msw: { handlers: [awardQueryMocked, updateOneAwardMocked] },
   nextRouter: {
@@ -24,7 +23,6 @@ Primary.parameters = {
 }
 
 export const Error: ComponentStory<typeof EditAwardPage> = Template.bind({})
-Error.decorators = decorators
 Error.parameters = {
   msw: { handlers: [awardQueryErrorMocked] },
   nextRouter: {

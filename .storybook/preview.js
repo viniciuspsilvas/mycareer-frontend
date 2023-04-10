@@ -1,9 +1,11 @@
 import * as NextImage from "next/image";
 import '../styles/globals.css';
 
-import { initialize, mswDecorator } from "msw-storybook-addon";
 import { addDecorator } from "@storybook/react";
+import { initialize, mswDecorator } from "msw-storybook-addon";
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import { reactQueryProviderDecorator } from "../src/__mocks__/decorators";
+import { nextAuthMocked } from '../src/__mocks__/mockedNextAuth';
 
 /************************************************************************************/
 // Initialize MSW
@@ -19,6 +21,8 @@ initialize();
 
 // Provide the MSW addon decorator globally
 addDecorator(mswDecorator);
+//  react-query QueryClientProvider
+addDecorator(reactQueryProviderDecorator);
 /************************************************************************************/
 
 /******************************************************************************************
@@ -54,5 +58,5 @@ export const parameters = {
     } // defaults to using addon actions integration,
     //   can override any method in the router
   },
-
+  // msw: { handlers: [nextAuthMocked] }
 }
