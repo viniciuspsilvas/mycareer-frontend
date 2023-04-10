@@ -9,7 +9,7 @@ import {
 import AwardsPage from '../index'
 
 export default {
-  title: 'components/admin/award/list',
+  title: 'pages/admin/award/list',
   component: AwardsPage
 } as ComponentMeta<typeof AwardsPage>
 

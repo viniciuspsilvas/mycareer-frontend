@@ -4,7 +4,7 @@ import { awardQueryErrorMocked, awardQueryMocked, updateOneAwardMocked } from 's
 import EditAwardPage from '../edit'
 
 export default {
-  title: 'components/admin/award/edit',
+  title: 'pages/admin/award/edit',
   component: EditAwardPage
 } as ComponentMeta<typeof EditAwardPage>
 
