@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material'
 import { NextPage } from 'next'
-import { AdminLayout } from 'pages/admin/AdminLayout'
+import { AdminLayout } from '@components/layout/AdminLayout'
 import { useGetMe } from 'src/apis/users/queries'
 
 const UserAdminPage: NextPage = () => {

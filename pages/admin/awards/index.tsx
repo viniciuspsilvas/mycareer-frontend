@@ -21,7 +21,7 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useAwards, useDeleteAward } from 'src/apis/awards/queries'
 import { Award } from 'src/generated/graphql'
-import { AdminLayout } from '../AdminLayout'
+import { AdminLayout } from '@components/layout/AdminLayout'
 import { en } from './i18n/en'
 import { en as baseEn } from '@i18n/en'
 

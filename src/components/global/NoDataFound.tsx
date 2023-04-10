@@ -1,4 +1,3 @@
-import { AdminLayout } from 'pages/admin/AdminLayout'
 import { HTMLAttributes } from 'react'
 
 export interface NoDataFoundProps extends HTMLAttributes<HTMLLabelElement> {

@@ -3,7 +3,7 @@ import { Routes } from '@lib/common/route'
 import type { NextPage } from 'next'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { AdminLayout } from 'pages/admin/AdminLayout'
+import { AdminLayout } from '@components/layout/AdminLayout'
 import toast from 'react-hot-toast'
 import { UserInput } from 'src/generated/graphql'
 

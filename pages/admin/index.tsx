@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material'
 import { NextPage } from 'next'
 import { useGetMe } from 'src/apis/users/queries'
-import { AdminLayout } from './AdminLayout'
+import { AdminLayout } from '@components/layout/AdminLayout'
 
 const AdminPage: NextPage = () => {
   const { data: user, refetch } = useGetMe()

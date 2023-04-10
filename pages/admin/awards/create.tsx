@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useUpsertAward } from 'src/apis/awards/queries'
 import { AwardInput } from 'src/generated/graphql'
-import { AdminLayout } from '../AdminLayout'
+import { AdminLayout } from '@components/layout/AdminLayout'
 
 const CreateQuestionPage: NextPage = () => {
   const router = useRouter()
