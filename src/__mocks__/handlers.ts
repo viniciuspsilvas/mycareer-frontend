@@ -7,6 +7,7 @@ import {
   deleteOneAwardMocked,
   updateOneAwardMocked
 } from './mockedAwards'
+import { getMeQueryMocked } from './mockedGetMe'
 
 export const handlers = [
   awardQueryMocked,
@@ -15,5 +16,7 @@ export const handlers = [
   awardsEmptyMocked,
   createOneAwardMocked,
   updateOneAwardMocked,
-  deleteOneAwardMocked
+  deleteOneAwardMocked,
+  //
+  getMeQueryMocked
 ]

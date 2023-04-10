@@ -1,3 +1,5 @@
+import { UserRole } from "src/generated/graphql"
+
 export const awards = {
     awards: [
         {
@@ -19,4 +21,13 @@ export const awards = {
             grantedAt: '2018-01-01T00:00:00.000Z'
         }
     ]
+}
+
+export const me = {
+    id: "1",
+    firstname: 'Vinicius',
+    lastname: 'Silva',
+    mobile: '444 555 666',
+    email: 'viniciuspsilvas@gmail.com',
+    role: UserRole.ADMIN,
 }
