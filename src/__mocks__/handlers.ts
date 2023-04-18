@@ -8,8 +8,11 @@ import {
   updateOneAwardMocked
 } from './mockedAwards'
 import { getMeQueryMocked } from './mockedGetMe'
+import { nextAuthMocked } from './mockedNextAuth'
 
 export const handlers = [
+  nextAuthMocked,
+  //
   awardQueryMocked,
   awardsQueryMocked,
   awardsLoadingMocked,
