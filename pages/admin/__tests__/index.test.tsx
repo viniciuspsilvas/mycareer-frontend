@@ -1,9 +1,16 @@
-import { render } from '@testing-library/react'
-import AdminPage from '../index'
+import { composeStories } from '@storybook/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import { wrapper } from 'src/__mocks__/decorators'
+import * as stories from '../__stories__/index.stories'
 
 describe('AdminPage', () => {
-  test('renders AdminPage unchanged', () => {
-    const { container } = render(<AdminPage />)
-    expect(container).toMatchSnapshot()
+  const { Primary } = composeStories(stories)
+
+  test.only('renders AdminPage page', async () => {
+    render(<Primary />, { wrapper })
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /Admin page/i })).toBeInTheDocument()
+    })
   })
 })

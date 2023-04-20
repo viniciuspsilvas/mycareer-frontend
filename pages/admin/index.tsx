@@ -10,7 +10,7 @@ const AdminPage: NextPage = () => {
 
   return (
     <AdminLayout>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
         Admin page
       </Typography>
       <br />
